@@ -17,7 +17,7 @@ Oracle is notorious with changing urls so please forgive me if these urls are po
 >- We are not deleting the tarball to make ansible not copy the same jdk tarball again.
 <br/>
 
-* [java] = host name for deploying JDK's to IPs given in hosts inventory file. 
+* hosts: all = host name for deploying JDK's to IPs given in hosts inventory file. 
            Note: We are executing this playbook on [all] and not [java]
 * java = role name for playing included java playbook **_/roles/java/tasks/main.yml_**
 * tarURL = name of the tarball downloaded from the web.
@@ -25,9 +25,8 @@ Oracle is notorious with changing urls so please forgive me if these urls are po
 
 ![](images/javaPlaybookOrPlaybook.png)
 
-* hosts: [java] = hosts name where tasks needs to be performed via playbook **_/etc/ansible/hosts_**
-
-  hosts: all = We are executing this playbook on [all] vms listed at **_/etc/ansible/hosts_**
+* hosts: [java] = hosts name where tasks needs to be performed via playbook **_/etc/ansible/hosts_**.
+  hosts: [all] = We are executing this playbook on [all] vms listed at **_/etc/ansible/hosts_**
 ![](images/hosts.png)
 
 ### The overall structure looks like
