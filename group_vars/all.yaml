@@ -1,0 +1,14 @@
+######################################################################################
+##############      JDKs to Remote machie      #######################################
+######################################################################################
+jdkDest: /usr/local/java/
+jdkSrc: /home/mkumar/Downloads/
+
+java8JCE: /home/mkumar/Downloads/UnlimitedJCEPolicyJDK8/
+java7JCE: /home/mkumar/Downloads/UnlimitedJCEPolicy/
+java6JCE: /home/mkumar/Downloads/jce/
+java5JCE: /home/mkumar/Downloads/jce5/
+#TODO delete these 2 variables after checking in playbook
+localPolicy: local_policy.jar
+USExportPolicy: US_export_policy.jar
+######################################################################################

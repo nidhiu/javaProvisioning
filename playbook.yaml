@@ -1,0 +1,37 @@
+#####################################################################################
+##############      JDKs to Remote machie      #######################################
+######################################################################################
+####### Step 1. Copy tarball to remote machine                                       #
+####### Step 2. Extract the jdks                                                     #
+####### Step 3. Create checksum256 from tarball and store it into checksumDB file    #
+####### Step 4. Copy JCE if there is a want of unlimited strength                    #
+######################################################################################
+
+# role:     will remain java to execute the playbook of java
+# tarUrl:   will have just name of the tarball downloaded from oracle.
+# jce:      Apply variable JCE if and only if you want unlimited jce strength.
+#           from orace zip is extracted to these: java8JCE = UnlimitedJCEPolicyJDK8,
+#           jdk7 = UnlimitedJCEPolicy, jdk6 = jce,
+#           jdk5 = jce5(make sure to rename it from jce to jce5 while extract from zip)
+
+- hosts: all
+  roles:
+    # - {role: java, tarName: "IamTarBall_DeleteMe_8u191", tarUrl: "https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4..
+
+     #TODO download tarball from internet and store in /home/user/Downloads
+     # - {role: java, tarUrl: "jdk-8u192-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u191-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u181-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u172-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u162-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u152-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u152-linux-x64.tar.gz"}
+     # - {role: java, tarUrl: "jdk-8u144-linux-x64.tar.gz"}
+     # - {role: java, tarTempName: "IamTarBall_DeleteMe_8.zip", tarUrl: "jce_policy-8.zip"}
+#      - {role: java, tarUrl: "jdk-8u131-linux-x64.tar.gz"}
+#      - {role: java, tarUrl: "jdk-8u20-linux-x64.tar.gz"}
+#      - {role: java, tarUrl: "jdk-7u80-linux-x64.tar.gz", jce: "{{ java7JCE }}"}
+      - {role: java, tarUrl: "jdk-7u79-linux-x64.tar.gz", jce: "{{ java7JCE }}" }
+#      - {role: java, tarUrl: "jdk-7u55-linux-x64.tar.gz"}
+#      - {role: java, tarUrl: "jdk-7u25-linux-x64.tar.gz"}
+#      - {role: java, tarUrl: "jdk-7u10-linux-x64.tar.gz"}

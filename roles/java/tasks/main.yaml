@@ -1,0 +1,75 @@
+  - name: make directory /usr/local/java
+    file: path=/usr/local/java state=directory
+    become: true
+
+  - name: create checksum storage file at /usr/local/java/checksumDB
+    copy:
+      dest: /usr/local/java/checksumDB
+      force: no
+      content: ""
+      mode: "u+rwx,g+rwx,o+rwx"
+    become: yes
+
+  - name: copy {{ tarUrl }}  from Control machine to remote machine
+    copy:
+      src: "{{ jdkSrc + tarUrl  }}"
+      dest: "{{ jdkDest }}"
+      owner: root
+      group: root
+      mode: 744
+    register: copy
+    become: yes
+
+  - name: create 256checksum for the file
+    stat:
+       checksum_algorithm: sha256
+       get_checksum: yes
+       path: "{{ copy.dest }}"
+    register: sha
+    when: copy.changed == true
+    become: yes
+
+  - name: Unpack archive for "{{ copy.dest  }}"
+    unarchive:
+        copy: no
+        owner: root
+        group: root
+        src: "{{ copy.dest }}"
+        dest: "{{ jdkDest }}"
+        list_files: yes
+        extra_opts:
+          - --transform
+          - s/^xxx/yyy/
+    register: jdk
+    when: copy.changed == true
+    become: true
+
+  - name: copy checksum256 to {{ jdkDest }}checksumDB
+    lineinfile:
+          create: yes
+          regexp: "NONEXISTENTLINE"
+          dest: "{{ jdkDest }}/checksumDB"
+          line: "{{sha.stat.checksum + '  ' + jdk.files[0] }}"
+          state: present
+    when: copy.changed == true
+    become: yes
+
+  - name: format checksumDB file
+    shell: sed -e 's/[/B]//' {{ jdkDest }}checksumDB >> {{ jdkDest }}temp ; mv {{ jdkDest }}temp  {{ jdkDest }}checksumDB
+    when: copy.changed == true
+    become: yes
+	
+  - name: format checksumDB file
+    shell: sed -e 's/[/B]//' {{ jdkDest }}checksumDB >> {{ jdkDest }}temp ; mv {{ jdkDest }}temp  {{ jdkDest }}checksumDB
+    when: copy.changed == true
+    become: yes
+
+# we will skip copying of JCE is user won't pass the jce variable in playbook
+# we don't have to worry about transferring before checking the JCE's for any jdk's
+  - name: copy local JCE from {{ jce }} to remote {{ jdkDest}}jdk/jre/lib/security/
+    copy:
+      src: "{{ jce }}"
+      dest: "{{ jdkDest + jdk.files[3] }}lib/security/"
+    when: copy.changed == true and  jce is defined
+    become: yes
+
