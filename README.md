@@ -21,7 +21,8 @@ Oracle is notorious with changing urls so please forgive me if these urls are po
 * java = role name for playing included java playbook **_/roles/java/tasks/main.yml_**
 * tarURL = name of the tarball downloaded from the web.
 * jce = name of the extracted jce unzip file from the web.
-![](images/javaPlaybookOrPlaybook.png.png)
+
+![](images/javaPlaybookOrPlaybook.png)
 
 * hosts: [java] = hosts name where tasks needs to be performed via playbook **_/etc/ansible/hosts_**
 ![](images/hosts.png)
