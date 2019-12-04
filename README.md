@@ -26,6 +26,7 @@ Oracle is notorious with changing urls so please forgive me if these urls are po
 ![](images/javaPlaybookOrPlaybook.png)
 
 * hosts: [java] = hosts name where tasks needs to be performed via playbook **_/etc/ansible/hosts_**
+
   hosts: all = We are executing this playbook on [all] vms listed at **_/etc/ansible/hosts_**
 ![](images/hosts.png)
 
